@@ -566,6 +566,18 @@ function subscribeToAdminEvents() {
     allEvents = snap.docs.map(d => ({ id: d.id, ...d.data() }));
     renderAdminStats();
     renderAdminList();
+  }, (err) => {
+    console.error('Admin events query failed:', err);
+    if (err.code === 'failed-precondition') {
+      showToast('Index missing — check browser console for the index creation link.', 'error');
+      console.warn('🔴 Firestore requires a composite index for this query.\nOpen the link in the error above to create it in the Firebase console.');
+    } else {
+      showToast('Failed to load events: ' + err.message, 'error');
+    }
+    document.getElementById('admin-events-list').innerHTML =
+      `<div style="text-align:center;padding:60px;color:var(--danger);font-size:13px">
+        Failed to load events. Check the browser console for details.
+      </div>`;
   });
 }
 
