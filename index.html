@@ -189,6 +189,66 @@ select.form-input option { background: #1a1a26; }
 
 .loading-state { text-align: center; padding: 80px 32px; color: var(--muted); grid-column: 1/-1; display: flex; flex-direction: column; align-items: center; gap: 16px; }
 .loading-state .big-spinner { width: 32px; height: 32px; border: 3px solid rgba(110,231,183,0.2); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
+
+/* RSVP CONFIRM MODAL */
+.rsvp-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.75); backdrop-filter: blur(10px); z-index: 1100; align-items: center; justify-content: center; padding: 20px; }
+.rsvp-overlay.open { display: flex; }
+.rsvp-modal { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; width: 100%; max-width: 440px; overflow: hidden; box-shadow: 0 40px 80px rgba(0,0,0,0.6); animation: modalIn 0.3s cubic-bezier(0.34,1.56,0.64,1); }
+
+/* Step indicator */
+.rsvp-steps { display: flex; border-bottom: 1px solid var(--border); }
+.rsvp-step-tab { flex: 1; padding: 14px; text-align: center; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); transition: all 0.3s; position: relative; }
+.rsvp-step-tab.active { color: var(--accent); }
+.rsvp-step-tab.active::after { content: ''; position: absolute; bottom: 0; left: 20%; right: 20%; height: 2px; background: var(--accent); border-radius: 2px 2px 0 0; }
+.rsvp-step-tab.done { color: var(--accent); opacity: 0.5; }
+.rsvp-step-num { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; border: 1px solid currentColor; font-size: 10px; margin-right: 6px; }
+.rsvp-step-tab.done .rsvp-step-num { background: var(--accent); color: #0a0a0f; border-color: var(--accent); }
+
+.rsvp-body { padding: 32px; }
+
+/* Step 1 — Event preview */
+.rsvp-event-banner { border-radius: 12px; padding: 20px; margin-bottom: 24px; border: 1px solid; }
+.rsvp-event-banner.cat-hackathon { background: rgba(110,231,183,0.06); border-color: rgba(110,231,183,0.2); }
+.rsvp-event-banner.cat-workshop  { background: rgba(167,139,250,0.06); border-color: rgba(167,139,250,0.2); }
+.rsvp-event-banner.cat-seminar   { background: rgba(245,158,11,0.06);  border-color: rgba(245,158,11,0.2);  }
+.rsvp-event-banner.cat-cultural  { background: rgba(236,72,153,0.06);  border-color: rgba(236,72,153,0.2);  }
+.rsvp-banner-cat { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px; opacity: 0.8; }
+.rsvp-banner-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 20px; letter-spacing: -0.3px; margin-bottom: 12px; }
+.rsvp-banner-meta { display: flex; flex-direction: column; gap: 5px; }
+.rsvp-meta-row { font-size: 12px; color: var(--muted); display: flex; gap: 8px; }
+.rsvp-meta-row span { color: var(--text); }
+
+.rsvp-section-label { font-size: 11px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
+.rsvp-user-info { display: flex; align-items: center; gap: 12px; background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; }
+.rsvp-user-avatar { width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--border); object-fit: cover; flex-shrink: 0; }
+.rsvp-user-avatar-placeholder { width: 36px; height: 36px; border-radius: 50%; background: rgba(110,231,183,0.15); border: 2px solid rgba(110,231,183,0.3); display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+.rsvp-user-details { flex: 1; min-width: 0; }
+.rsvp-user-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.rsvp-user-email { font-size: 11px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Step 2 — Confirm */
+.rsvp-confirm-icon { width: 64px; height: 64px; border-radius: 50%; background: rgba(110,231,183,0.12); border: 2px solid rgba(110,231,183,0.3); display: flex; align-items: center; justify-content: center; font-size: 28px; margin: 0 auto 20px; }
+.rsvp-confirm-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 20px; text-align: center; margin-bottom: 8px; }
+.rsvp-confirm-sub { font-size: 13px; color: var(--muted); text-align: center; margin-bottom: 24px; line-height: 1.6; }
+.rsvp-confirm-summary { background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; margin-bottom: 24px; }
+.rsvp-summary-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--border); font-size: 12px; }
+.rsvp-summary-row:last-child { border-bottom: none; }
+.rsvp-summary-key { color: var(--muted); }
+.rsvp-summary-val { color: var(--text); font-weight: 500; text-align: right; max-width: 60%; }
+
+.rsvp-actions { display: flex; gap: 12px; }
+.rsvp-btn-back { flex: 1; padding: 12px; border-radius: 10px; border: 1px solid var(--border); background: none; color: var(--muted); font-family: 'DM Mono', monospace; font-size: 13px; cursor: pointer; transition: all 0.2s; }
+.rsvp-btn-back:hover { border-color: var(--text); color: var(--text); }
+.rsvp-btn-confirm { flex: 2; padding: 12px; border-radius: 10px; border: none; background: var(--accent); color: #0a0a0f; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.rsvp-btn-confirm:hover { background: #a7f3d0; }
+.rsvp-btn-confirm:disabled { opacity: 0.5; cursor: not-allowed; }
+.rsvp-btn-cancel-top { position: absolute; top: 16px; right: 16px; background: none; border: none; color: var(--muted); font-size: 18px; cursor: pointer; padding: 4px 8px; border-radius: 6px; transition: color 0.2s; }
+.rsvp-btn-cancel-top:hover { color: var(--text); }
+.rsvp-modal-wrap { position: relative; }
+
+/* Step transition */
+.rsvp-step-panel { display: none; }
+.rsvp-step-panel.active { display: block; animation: fadeUp 0.25s ease both; }
 </style>
 </head>
 <body>
@@ -270,6 +330,57 @@ select.form-input option { background: #1a1a26; }
     <button class="btn-new-event" onclick="openModal()">+ Post New Event</button>
   </div>
   <div class="admin-events-list" id="admin-events-list"></div>
+</div>
+
+<!-- RSVP CONFIRM MODAL -->
+<div class="rsvp-overlay" id="rsvp-overlay">
+  <div class="rsvp-modal-wrap">
+    <button class="rsvp-btn-cancel-top" onclick="closeRsvpModal()" title="Close">✕</button>
+    <div class="rsvp-modal">
+      <!-- Step tabs -->
+      <div class="rsvp-steps">
+        <div class="rsvp-step-tab active" id="rsvp-tab-1">
+          <span class="rsvp-step-num">1</span>Review
+        </div>
+        <div class="rsvp-step-tab" id="rsvp-tab-2">
+          <span class="rsvp-step-num">2</span>Confirm
+        </div>
+      </div>
+
+      <div class="rsvp-body">
+        <!-- Step 1 -->
+        <div class="rsvp-step-panel active" id="rsvp-panel-1">
+          <div class="rsvp-event-banner" id="rsvp-banner"></div>
+          <div class="rsvp-section-label">Registering as</div>
+          <div class="rsvp-user-info">
+            <div id="rsvp-avatar-wrap"></div>
+            <div class="rsvp-user-details">
+              <div class="rsvp-user-name" id="rsvp-user-name"></div>
+              <div class="rsvp-user-email" id="rsvp-user-email"></div>
+            </div>
+          </div>
+          <div class="rsvp-actions" style="margin-top:24px">
+            <button class="rsvp-btn-back" onclick="closeRsvpModal()">Cancel</button>
+            <button class="rsvp-btn-confirm" onclick="rsvpGoStep2()">Continue →</button>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="rsvp-step-panel" id="rsvp-panel-2">
+          <div class="rsvp-confirm-icon">🎟</div>
+          <div class="rsvp-confirm-title">Confirm your RSVP</div>
+          <div class="rsvp-confirm-sub">By confirming, your spot will be reserved.<br>This action cannot be undone.</div>
+          <div class="rsvp-confirm-summary" id="rsvp-summary"></div>
+          <div class="rsvp-actions">
+            <button class="rsvp-btn-back" onclick="rsvpGoStep1()">← Back</button>
+            <button class="rsvp-btn-confirm" id="rsvp-confirm-btn" onclick="confirmRsvp()">
+              <span id="rsvp-btn-label">Confirm RSVP</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- MODAL -->
@@ -526,31 +637,113 @@ function renderCards() {
   }).join('');
 }
 
-// ─── STUDENT: RSVP ───────────────────────────────────────────────
-window.doRsvp = async function(eventId) {
+// ─── STUDENT: RSVP (TWO-STEP) ────────────────────────────────────
+let pendingRsvpId = null;
+
+window.doRsvp = function(eventId) {
   if (!currentUser) return;
   const ev = allEvents.find(e => e.id === eventId);
   if (!ev || myRsvps.has(eventId) || (ev.rsvps || 0) >= (ev.capacity || 0)) return;
+  pendingRsvpId = eventId;
+  openRsvpModal(ev);
+};
+
+function openRsvpModal(ev) {
+  // Build event banner
+  const banner = document.getElementById('rsvp-banner');
+  banner.className = `rsvp-event-banner cat-${ev.category}`;
+  banner.innerHTML = `
+    <div class="rsvp-banner-cat">${capWord(ev.category)}</div>
+    <div class="rsvp-banner-title">${ev.title}</div>
+    <div class="rsvp-banner-meta">
+      <div class="rsvp-meta-row">📅 <span>${fmtDate(ev.date)} · ${fmtTime(ev.time)}</span></div>
+      <div class="rsvp-meta-row">📍 <span>${ev.venue}</span></div>
+      <div class="rsvp-meta-row">👥 <span>${Math.max(0,(ev.capacity||0)-(ev.rsvps||0))} spots remaining</span></div>
+    </div>`;
+
+  // User info
+  document.getElementById('rsvp-user-name').textContent = currentUser.displayName || 'Student';
+  document.getElementById('rsvp-user-email').textContent = currentUser.email;
+  const avatarWrap = document.getElementById('rsvp-avatar-wrap');
+  if (currentUser.photoURL) {
+    avatarWrap.innerHTML = `<img class="rsvp-user-avatar" src="${currentUser.photoURL}" alt=""/>`;
+  } else {
+    avatarWrap.innerHTML = `<div class="rsvp-user-avatar-placeholder">👤</div>`;
+  }
+
+  // Build step-2 summary
+  document.getElementById('rsvp-summary').innerHTML = `
+    <div class="rsvp-summary-row"><span class="rsvp-summary-key">Event</span><span class="rsvp-summary-val">${ev.title}</span></div>
+    <div class="rsvp-summary-row"><span class="rsvp-summary-key">Date</span><span class="rsvp-summary-val">${fmtDate(ev.date)}, ${fmtTime(ev.time)}</span></div>
+    <div class="rsvp-summary-row"><span class="rsvp-summary-key">Venue</span><span class="rsvp-summary-val">${ev.venue}</span></div>
+    <div class="rsvp-summary-row"><span class="rsvp-summary-key">Name</span><span class="rsvp-summary-val">${currentUser.displayName || '—'}</span></div>
+    <div class="rsvp-summary-row"><span class="rsvp-summary-key">Email</span><span class="rsvp-summary-val">${currentUser.email}</span></div>`;
+
+  rsvpGoStep1();
+  document.getElementById('rsvp-overlay').classList.add('open');
+}
+
+window.closeRsvpModal = function() {
+  document.getElementById('rsvp-overlay').classList.remove('open');
+  pendingRsvpId = null;
+};
+
+function rsvpGoStep1() {
+  document.getElementById('rsvp-panel-1').classList.add('active');
+  document.getElementById('rsvp-panel-2').classList.remove('active');
+  document.getElementById('rsvp-tab-1').classList.add('active');
+  document.getElementById('rsvp-tab-1').classList.remove('done');
+  document.getElementById('rsvp-tab-2').classList.remove('active');
+}
+
+window.rsvpGoStep2 = function() {
+  document.getElementById('rsvp-panel-1').classList.remove('active');
+  document.getElementById('rsvp-panel-2').classList.add('active');
+  document.getElementById('rsvp-tab-1').classList.remove('active');
+  document.getElementById('rsvp-tab-1').classList.add('done');
+  document.getElementById('rsvp-tab-2').classList.add('active');
+};
+
+window.rsvpGoStep1 = rsvpGoStep1;
+
+window.confirmRsvp = async function() {
+  if (!pendingRsvpId || !currentUser) return;
+  const eventId = pendingRsvpId;
+  const ev = allEvents.find(e => e.id === eventId);
+  if (!ev) return;
+
+  const btn = document.getElementById('rsvp-confirm-btn');
+  const label = document.getElementById('rsvp-btn-label');
+  btn.disabled = true;
+  label.innerHTML = `<div class="spinner" style="border-top-color:#0a0a0f;border-color:rgba(0,0,0,0.2);border-top-color:#0a0a0f"></div>`;
 
   myRsvps.add(eventId);
-  renderCards(); // optimistic UI
+  renderCards(); // optimistic
 
   try {
-    // Save RSVP under user's subcollection
     await setDoc(doc(db, 'users', currentUser.uid, 'rsvps', eventId), {
       eventId,
       eventTitle: ev.title,
       rsvpedAt: serverTimestamp()
     });
-    // Increment event RSVP counter
     await updateDoc(doc(db, 'events', eventId), { rsvps: increment(1) });
+    closeRsvpModal();
     showToast(`✓ Registered for "${ev.title}"`, 'student');
   } catch(e) {
     myRsvps.delete(eventId);
     renderCards();
+    closeRsvpModal();
     showToast('RSVP failed. Try again.', 'error');
+  } finally {
+    btn.disabled = false;
+    label.textContent = 'Confirm RSVP';
   }
 };
+
+// Close on backdrop click
+document.getElementById('rsvp-overlay').addEventListener('click', function(e) {
+  if (e.target === this) window.closeRsvpModal();
+});
 
 // ─── ADMIN: SUBSCRIBE ────────────────────────────────────────────
 function subscribeToAdminEvents() {
@@ -566,18 +759,6 @@ function subscribeToAdminEvents() {
     allEvents = snap.docs.map(d => ({ id: d.id, ...d.data() }));
     renderAdminStats();
     renderAdminList();
-  }, (err) => {
-    console.error('Admin events query failed:', err);
-    if (err.code === 'failed-precondition') {
-      showToast('Index missing — check browser console for the index creation link.', 'error');
-      console.warn('🔴 Firestore requires a composite index for this query.\nOpen the link in the error above to create it in the Firebase console.');
-    } else {
-      showToast('Failed to load events: ' + err.message, 'error');
-    }
-    document.getElementById('admin-events-list').innerHTML =
-      `<div style="text-align:center;padding:60px;color:var(--danger);font-size:13px">
-        Failed to load events. Check the browser console for details.
-      </div>`;
   });
 }
 
