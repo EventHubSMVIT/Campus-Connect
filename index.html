@@ -67,11 +67,35 @@ body::before { content: ''; position: fixed; inset: 0; background-image: url("da
 .nav-badge { font-size: 10px; padding: 3px 10px; border-radius: 999px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 500; }
 .badge-student { background: rgba(110,231,183,0.15); color: var(--accent); border: 1px solid rgba(110,231,183,0.3); }
 .badge-admin { background: rgba(245,158,11,0.15); color: var(--admin-accent); border: 1px solid rgba(245,158,11,0.3); }
-.nav-right { display: flex; align-items: center; gap: 12px; }
+.nav-right { display: flex; align-items: center; gap: 12px; position: relative; }
 .nav-user { font-size: 11px; color: var(--muted); max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .nav-avatar { width: 32px; height: 32px; border-radius: 50%; border: 2px solid var(--border); object-fit: cover; }
 .btn-logout { background: none; border: 1px solid var(--border); border-radius: 8px; color: var(--muted); font-family: 'DM Mono', monospace; font-size: 12px; padding: 6px 14px; cursor: pointer; transition: all 0.2s; }
 .btn-logout:hover { border-color: var(--danger); color: var(--danger); }
+
+/* NOTIFICATION BELL */
+.notif-bell-wrap { position: relative; }
+.notif-bell { background: none; border: 1px solid var(--border); border-radius: 8px; padding: 6px 12px; cursor: pointer; font-size: 16px; transition: all 0.2s; color: var(--text); display: flex; align-items: center; gap: 6px; }
+.notif-bell:hover { border-color: rgba(110,231,183,0.4); background: rgba(110,231,183,0.06); }
+.notif-count { background: var(--danger); color: #fff; border-radius: 50%; width: 18px; height: 18px; font-size: 10px; font-family: 'Syne', sans-serif; font-weight: 700; display: none; align-items: center; justify-content: center; flex-shrink: 0; }
+.notif-count.visible { display: flex; }
+
+/* NOTIFICATION PANEL */
+.notif-panel { display: none; position: absolute; top: calc(100% + 10px); right: 0; width: 360px; background: var(--surface); border: 1px solid var(--border); border-radius: 16px; box-shadow: 0 20px 48px rgba(0,0,0,0.6); z-index: 300; overflow: hidden; animation: fadeUp 0.2s ease; }
+.notif-panel.open { display: block; }
+.notif-panel-header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+.notif-panel-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; }
+.notif-mark-all { font-size: 11px; color: var(--accent); cursor: pointer; background: none; border: none; font-family: 'DM Mono', monospace; padding: 0; }
+.notif-mark-all:hover { text-decoration: underline; }
+.notif-list-inner { max-height: 360px; overflow-y: auto; }
+.notif-item { padding: 14px 20px; border-bottom: 1px solid var(--border); transition: background 0.2s; cursor: pointer; border-left: 3px solid transparent; }
+.notif-item:hover { background: var(--surface2); }
+.notif-item.unread { border-left-color: var(--accent); background: rgba(110,231,183,0.03); }
+.notif-item:last-child { border-bottom: none; }
+.notif-event-tag { font-size: 10px; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 5px; }
+.notif-msg-text { font-size: 13px; color: var(--text); line-height: 1.5; }
+.notif-time-label { font-size: 10px; color: var(--muted); margin-top: 6px; }
+.notif-empty { padding: 40px 20px; text-align: center; color: var(--muted); font-size: 12px; }
 
 /* STUDENT */
 #student-screen { background: var(--bg); }
@@ -147,6 +171,7 @@ body::before { content: ''; position: fixed; inset: 0; background-image: url("da
 .admin-event-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 16px; margin-bottom: 4px; }
 .admin-event-meta { font-size: 12px; color: var(--muted); }
 .admin-event-meta span { color: var(--text); }
+.admin-event-actions { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
 .rsvp-counter { text-align: center; min-width: 80px; }
 .rsvp-num { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 26px; color: var(--admin-accent); }
 .rsvp-label { font-size: 10px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
@@ -154,6 +179,12 @@ body::before { content: ''; position: fixed; inset: 0; background-image: url("da
 .admin-capacity-fill { height: 100%; background: var(--admin-accent); border-radius: 999px; transition: width 0.5s; }
 .btn-delete { background: none; border: 1px solid var(--border); border-radius: 8px; color: var(--muted); padding: 6px 12px; font-family: 'DM Mono', monospace; font-size: 11px; cursor: pointer; transition: all 0.2s; }
 .btn-delete:hover { border-color: var(--danger); color: var(--danger); }
+
+/* ADMIN ACTION BUTTONS */
+.btn-view-rsvps { padding: 6px 14px; border-radius: 8px; font-family: 'DM Mono', monospace; font-size: 11px; cursor: pointer; transition: all 0.2s; border: 1px solid rgba(110,231,183,0.3); background: rgba(110,231,183,0.08); color: var(--accent); }
+.btn-view-rsvps:hover { background: rgba(110,231,183,0.16); }
+.btn-notify { padding: 6px 14px; border-radius: 8px; font-family: 'DM Mono', monospace; font-size: 11px; cursor: pointer; transition: all 0.2s; border: 1px solid rgba(245,158,11,0.3); background: rgba(245,158,11,0.08); color: var(--admin-accent); }
+.btn-notify:hover { background: rgba(245,158,11,0.16); }
 
 /* MODAL */
 .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
@@ -168,6 +199,7 @@ body::before { content: ''; position: fixed; inset: 0; background-image: url("da
 .form-input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(110,231,183,0.12); }
 select.form-input { cursor: pointer; }
 select.form-input option { background: #1a1a26; }
+textarea.form-input { resize: vertical; min-height: 100px; line-height: 1.5; }
 .modal-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .modal-actions { display: flex; gap: 12px; margin-top: 28px; }
 .btn-cancel { flex: 1; padding: 12px; border-radius: 10px; border: 1px solid var(--border); background: none; color: var(--muted); font-family: 'DM Mono', monospace; font-size: 13px; cursor: pointer; transition: all 0.2s; }
@@ -175,6 +207,29 @@ select.form-input option { background: #1a1a26; }
 .btn-submit { flex: 2; padding: 12px; border-radius: 10px; border: none; background: var(--admin-accent); color: #0a0a0f; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; cursor: pointer; transition: all 0.2s; }
 .btn-submit:hover { background: #fcd34d; }
 .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* RSVP LIST MODAL */
+.rsvp-list-modal { max-width: 560px; }
+.rsvp-list-scroll { max-height: 360px; overflow-y: auto; margin-bottom: 20px; border: 1px solid var(--border); border-radius: 12px; }
+.rsvp-list-item { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--border); transition: background 0.2s; }
+.rsvp-list-item:last-child { border-bottom: none; }
+.rsvp-list-item:hover { background: var(--surface2); }
+.rsvp-list-avatar { width: 32px; height: 32px; border-radius: 50%; background: rgba(110,231,183,0.15); border: 1px solid rgba(110,231,183,0.3); display: flex; align-items: center; justify-content: center; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 13px; color: var(--accent); flex-shrink: 0; }
+.rsvp-list-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 13px; margin-bottom: 2px; }
+.rsvp-list-email { font-size: 11px; color: var(--muted); }
+.rsvp-list-date { font-size: 10px; color: var(--muted); margin-left: auto; flex-shrink: 0; }
+.rsvp-list-empty { padding: 48px; text-align: center; color: var(--muted); font-size: 13px; }
+.rsvp-list-count { font-size: 11px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 12px; }
+.btn-copy { background: rgba(110,231,183,0.1); border: 1px solid rgba(110,231,183,0.3); color: var(--accent); border-radius: 10px; padding: 12px; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 13px; cursor: pointer; transition: all 0.2s; flex: 1; }
+.btn-copy:hover { background: rgba(110,231,183,0.18); }
+
+/* NOTIFY MODAL */
+.notify-modal { max-width: 460px; }
+.notify-preview { background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+.notify-preview-icon { font-size: 18px; }
+.notify-preview-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 13px; }
+.notify-preview-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.notify-char-count { font-size: 11px; color: var(--muted); text-align: right; margin-top: 6px; }
 
 /* TOAST */
 .toast { position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; padding: 14px 24px; font-size: 13px; display: flex; align-items: center; gap: 10px; z-index: 9000; transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s; opacity: 0; white-space: nowrap; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
@@ -195,7 +250,6 @@ select.form-input option { background: #1a1a26; }
 .rsvp-overlay.open { display: flex; }
 .rsvp-modal { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; width: 100%; max-width: 440px; overflow: hidden; box-shadow: 0 40px 80px rgba(0,0,0,0.6); animation: modalIn 0.3s cubic-bezier(0.34,1.56,0.64,1); }
 
-/* Step indicator */
 .rsvp-steps { display: flex; border-bottom: 1px solid var(--border); }
 .rsvp-step-tab { flex: 1; padding: 14px; text-align: center; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); transition: all 0.3s; position: relative; }
 .rsvp-step-tab.active { color: var(--accent); }
@@ -206,7 +260,6 @@ select.form-input option { background: #1a1a26; }
 
 .rsvp-body { padding: 32px; }
 
-/* Step 1 — Event preview */
 .rsvp-event-banner { border-radius: 12px; padding: 20px; margin-bottom: 24px; border: 1px solid; }
 .rsvp-event-banner.cat-hackathon { background: rgba(110,231,183,0.06); border-color: rgba(110,231,183,0.2); }
 .rsvp-event-banner.cat-workshop  { background: rgba(167,139,250,0.06); border-color: rgba(167,139,250,0.2); }
@@ -226,7 +279,6 @@ select.form-input option { background: #1a1a26; }
 .rsvp-user-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .rsvp-user-email { font-size: 11px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
-/* Step 2 — Confirm */
 .rsvp-confirm-icon { width: 64px; height: 64px; border-radius: 50%; background: rgba(110,231,183,0.12); border: 2px solid rgba(110,231,183,0.3); display: flex; align-items: center; justify-content: center; font-size: 28px; margin: 0 auto 20px; }
 .rsvp-confirm-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 20px; text-align: center; margin-bottom: 8px; }
 .rsvp-confirm-sub { font-size: 13px; color: var(--muted); text-align: center; margin-bottom: 24px; line-height: 1.6; }
@@ -246,9 +298,14 @@ select.form-input option { background: #1a1a26; }
 .rsvp-btn-cancel-top:hover { color: var(--text); }
 .rsvp-modal-wrap { position: relative; }
 
-/* Step transition */
 .rsvp-step-panel { display: none; }
 .rsvp-step-panel.active { display: block; animation: fadeUp 0.25s ease both; }
+
+/* SCROLLBAR STYLING */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--muted); }
 </style>
 </head>
 <body>
@@ -260,7 +317,6 @@ select.form-input option { background: #1a1a26; }
   <div class="login-card">
     <div class="login-logo">Campus <span>Connect</span></div>
     <div class="login-tagline">SMVIT Event Platform</div>
-
     <button class="google-btn" id="google-login-btn" onclick="loginWithGoogle()">
       <svg class="google-icon" viewBox="0 0 24 24">
         <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -270,13 +326,10 @@ select.form-input option { background: #1a1a26; }
       </svg>
       Continue with Google
     </button>
-
     <div class="login-divider"><span>or</span></div>
-
     <button class="admin-login-btn" id="admin-login-btn" onclick="loginAsAdmin()">
       🛠 Sign in as Club Admin
     </button>
-
     <div class="login-hint">
       Students use their college Gmail.<br/>
       Admins use their club admin Gmail account.
@@ -291,6 +344,21 @@ select.form-input option { background: #1a1a26; }
     <div class="nav-right">
       <span class="nav-badge badge-student">Student</span>
       <span class="nav-user" id="student-user-label"></span>
+      <!-- Notification Bell -->
+      <div class="notif-bell-wrap">
+        <button class="notif-bell" id="notif-bell" onclick="toggleNotifPanel()">
+          🔔 <span class="notif-count" id="notif-count">0</span>
+        </button>
+        <div class="notif-panel" id="notif-panel">
+          <div class="notif-panel-header">
+            <span class="notif-panel-title">Notifications</span>
+            <button class="notif-mark-all" onclick="markAllRead()">Mark all read</button>
+          </div>
+          <div class="notif-list-inner" id="notif-list-inner">
+            <div class="notif-empty">No notifications yet</div>
+          </div>
+        </div>
+      </div>
       <img class="nav-avatar" id="student-avatar" src="" alt="" style="display:none"/>
       <button class="btn-logout" onclick="logout()">Sign out</button>
     </div>
@@ -337,16 +405,10 @@ select.form-input option { background: #1a1a26; }
   <div class="rsvp-modal-wrap">
     <button class="rsvp-btn-cancel-top" onclick="closeRsvpModal()" title="Close">✕</button>
     <div class="rsvp-modal">
-      <!-- Step tabs -->
       <div class="rsvp-steps">
-        <div class="rsvp-step-tab active" id="rsvp-tab-1">
-          <span class="rsvp-step-num">1</span>Review
-        </div>
-        <div class="rsvp-step-tab" id="rsvp-tab-2">
-          <span class="rsvp-step-num">2</span>Confirm
-        </div>
+        <div class="rsvp-step-tab active" id="rsvp-tab-1"><span class="rsvp-step-num">1</span>Review</div>
+        <div class="rsvp-step-tab" id="rsvp-tab-2"><span class="rsvp-step-num">2</span>Confirm</div>
       </div>
-
       <div class="rsvp-body">
         <!-- Step 1 -->
         <div class="rsvp-step-panel active" id="rsvp-panel-1">
@@ -364,7 +426,6 @@ select.form-input option { background: #1a1a26; }
             <button class="rsvp-btn-confirm" onclick="rsvpGoStep2()">Continue →</button>
           </div>
         </div>
-
         <!-- Step 2 -->
         <div class="rsvp-step-panel" id="rsvp-panel-2">
           <div class="rsvp-confirm-icon">🎟</div>
@@ -383,7 +444,7 @@ select.form-input option { background: #1a1a26; }
   </div>
 </div>
 
-<!-- MODAL -->
+<!-- NEW EVENT MODAL -->
 <div class="modal-overlay" id="modal-overlay">
   <div class="modal">
     <div class="modal-title">Post New Event</div>
@@ -428,6 +489,48 @@ select.form-input option { background: #1a1a26; }
   </div>
 </div>
 
+<!-- RSVP LIST MODAL -->
+<div class="modal-overlay" id="rsvp-list-overlay">
+  <div class="modal rsvp-list-modal">
+    <div class="modal-title">👥 RSVP List</div>
+    <div class="modal-sub" id="rsvp-list-event-name">Loading...</div>
+    <div class="rsvp-list-count" id="rsvp-list-count"></div>
+    <div class="rsvp-list-scroll" id="rsvp-list-content">
+      <div style="padding:40px;text-align:center;color:var(--muted)">Loading...</div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeRsvpListModal()">Close</button>
+      <button class="btn-copy" id="copy-emails-btn" onclick="copyEmails()">📋 Copy All Emails</button>
+    </div>
+  </div>
+</div>
+
+<!-- NOTIFY MODAL -->
+<div class="modal-overlay" id="notify-overlay">
+  <div class="modal notify-modal">
+    <div class="modal-title">📢 Notify Attendees</div>
+    <div class="modal-sub">All RSVP'd students will receive this notification.</div>
+    <div class="notify-preview" id="notify-preview">
+      <div class="notify-preview-icon">📅</div>
+      <div>
+        <div class="notify-preview-title" id="notify-preview-title">—</div>
+        <div class="notify-preview-sub" id="notify-preview-rsvps">0 students registered</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Message</label>
+      <textarea class="form-input" id="notify-msg" rows="4"
+        placeholder="e.g. Venue changed to Lab 3. Please bring your laptop."
+        oninput="updateCharCount()"></textarea>
+      <div class="notify-char-count" id="notify-char-count">0 / 300</div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeNotifyModal()">Cancel</button>
+      <button class="btn-submit" id="notify-submit-btn" onclick="sendNotification()">Send Notification →</button>
+    </div>
+  </div>
+</div>
+
 <!-- TOAST -->
 <div class="toast" id="toast">
   <div class="toast-dot"></div>
@@ -440,7 +543,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/fireba
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged }
   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { getFirestore, collection, getDocs, addDoc, updateDoc, deleteDoc,
-         doc, onSnapshot, query, where, orderBy, serverTimestamp, getDoc, setDoc, increment }
+         doc, onSnapshot, query, where, orderBy, serverTimestamp, setDoc, increment, arrayUnion }
   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -458,12 +561,10 @@ const auth = getAuth(app);
 const db   = getFirestore(app);
 
 // ─── ADMIN EMAILS ────────────────────────────────────────────────
-// Add your admin Gmail addresses here
 const ADMIN_EMAILS = [
   "eventhubsmvit@gmail.com",
   "adityakumaryadav2311@gmail.com",
   "adityakharga08@gmail.com",
-  // add more admin emails here
 ];
 
 // ─── STATE ───────────────────────────────────────────────────────
@@ -473,6 +574,12 @@ let currentFilter = 'all';
 let allEvents     = [];
 let myRsvps       = new Set();
 let unsubEvents   = null;
+let unsubNotifs   = null;
+let allNotifications = [];
+let rsvpEmailList = [];
+let notifyTargetEventId = null;
+let notifyTargetTitle   = null;
+let pendingRsvpId = null;
 
 const categories = ['all','hackathon','workshop','seminar','cultural'];
 
@@ -487,6 +594,7 @@ onAuthStateChanged(auth, async (user) => {
       showScreen('student-screen');
       renderStudentNav();
       subscribeToEvents();
+      subscribeToStudentNotifications();
     } else {
       showScreen('admin-screen');
       renderAdminNav();
@@ -495,7 +603,8 @@ onAuthStateChanged(auth, async (user) => {
   } else {
     currentUser = null;
     currentRole = null;
-    if (unsubEvents) { unsubEvents(); unsubEvents = null; }
+    if (unsubEvents)  { unsubEvents();  unsubEvents  = null; }
+    if (unsubNotifs)  { unsubNotifs();  unsubNotifs  = null; }
     showScreen('login-screen');
     enableLoginBtns();
   }
@@ -507,12 +616,9 @@ window.loginWithGoogle = async function() {
   try {
     const provider = new GoogleAuthProvider();
     await signInWithPopup(auth, provider);
-    // onAuthStateChanged handles the rest
   } catch(e) {
     enableLoginBtns();
-    if (e.code !== 'auth/popup-closed-by-user') {
-      showToast('Login failed: ' + e.message, 'error');
-    }
+    if (e.code !== 'auth/popup-closed-by-user') showToast('Login failed: ' + e.message, 'error');
   }
 };
 
@@ -528,29 +634,26 @@ window.loginAsAdmin = async function() {
     }
   } catch(e) {
     enableLoginBtns();
-    if (e.code !== 'auth/popup-closed-by-user') {
-      showToast('Login failed: ' + e.message, 'error');
-    }
+    if (e.code !== 'auth/popup-closed-by-user') showToast('Login failed: ' + e.message, 'error');
   }
 };
 
 window.logout = async function() {
   if (unsubEvents) { unsubEvents(); unsubEvents = null; }
+  if (unsubNotifs) { unsubNotifs(); unsubNotifs = null; }
   await signOut(auth);
 };
 
 function disableLoginBtns() {
   const gb = document.getElementById('google-login-btn');
   const ab = document.getElementById('admin-login-btn');
-  gb.disabled = true;
-  ab.disabled = true;
+  gb.disabled = ab.disabled = true;
   gb.innerHTML = `<div class="spinner"></div> Signing in...`;
 }
 function enableLoginBtns() {
   const gb = document.getElementById('google-login-btn');
   const ab = document.getElementById('admin-login-btn');
-  gb.disabled = false;
-  ab.disabled = false;
+  gb.disabled = ab.disabled = false;
   gb.innerHTML = `<svg class="google-icon" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg> Continue with Google`;
 }
 
@@ -582,17 +685,91 @@ function subscribeToEvents() {
     allEvents = snap.docs.map(d => ({ id: d.id, ...d.data() }));
     renderFilters();
     renderCards();
-  }, (err) => {
-    showToast('Failed to load events', 'error');
+  }, () => showToast('Failed to load events', 'error'));
+}
+
+// ─── STUDENT: NOTIFICATIONS ───────────────────────────────────────
+function subscribeToStudentNotifications() {
+  if (unsubNotifs) { unsubNotifs(); unsubNotifs = null; }
+
+  // We listen on the top-level notifications collection, filtered to events student has RSVP'd
+  // We use a broad listener and filter client-side since RSVP set may change
+  const q = query(
+    collection(db, 'notifications'),
+    orderBy('sentAt', 'desc')
+  );
+
+  unsubNotifs = onSnapshot(q, (snap) => {
+    // Only show notifications for events this student has RSVP'd to
+    const allNotifs = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    allNotifications = allNotifs.filter(n => myRsvps.has(n.eventId));
+    renderNotifications();
   });
 }
 
-// ─── STUDENT: RENDER ─────────────────────────────────────────────
+function renderNotifications() {
+  const unread = allNotifications.filter(n => !n.readBy?.includes(currentUser.uid));
+  const countEl = document.getElementById('notif-count');
+  if (unread.length > 0) {
+    countEl.textContent = unread.length > 9 ? '9+' : unread.length;
+    countEl.classList.add('visible');
+  } else {
+    countEl.classList.remove('visible');
+  }
+
+  const inner = document.getElementById('notif-list-inner');
+  if (!allNotifications.length) {
+    inner.innerHTML = `<div class="notif-empty">No notifications yet.<br>You'll see updates here when admins send announcements for events you've registered for.</div>`;
+    return;
+  }
+  inner.innerHTML = allNotifications.map(n => {
+    const isUnread = !n.readBy?.includes(currentUser.uid);
+    const timeStr  = n.sentAt?.toDate ? timeAgo(n.sentAt.toDate()) : '';
+    return `
+    <div class="notif-item ${isUnread ? 'unread' : ''}" onclick="markRead('${n.id}')">
+      <div class="notif-event-tag">${n.eventTitle || 'Event Update'}</div>
+      <div class="notif-msg-text">${escHtml(n.message)}</div>
+      <div class="notif-time-label">${timeStr}${n.adminName ? ' · by ' + escHtml(n.adminName) : ''}</div>
+    </div>`;
+  }).join('');
+}
+
+window.toggleNotifPanel = function() {
+  const panel = document.getElementById('notif-panel');
+  panel.classList.toggle('open');
+};
+
+// Close notif panel when clicking outside
+document.addEventListener('click', function(e) {
+  const wrap = document.querySelector('.notif-bell-wrap');
+  if (wrap && !wrap.contains(e.target)) {
+    document.getElementById('notif-panel')?.classList.remove('open');
+  }
+});
+
+window.markRead = async function(notifId) {
+  try {
+    await updateDoc(doc(db, 'notifications', notifId), {
+      readBy: arrayUnion(currentUser.uid)
+    });
+  } catch(e) { /* silent */ }
+};
+
+window.markAllRead = async function() {
+  const unread = allNotifications.filter(n => !n.readBy?.includes(currentUser.uid));
+  for (const n of unread) {
+    try {
+      await updateDoc(doc(db, 'notifications', n.id), { readBy: arrayUnion(currentUser.uid) });
+    } catch(e) { /* silent */ }
+  }
+};
+
+// ─── STUDENT: RENDER FILTERS & CARDS ─────────────────────────────
 function renderFilters() {
   const bar = document.getElementById('filters-bar');
   bar.innerHTML = categories.map(c =>
     `<button class="filter-chip ${currentFilter===c?'active':''}" onclick="window.setFilter('${c}')">
-      ${c==='all' ? '✦ All Events' : cap(c)+'s'}
+      ${c==='all' ? '✦ All Events' : capWord(c)+'s'}
     </button>`
   ).join('');
 }
@@ -625,9 +802,9 @@ function renderCards() {
         <span class="card-category cat-${e.category}">${capWord(e.category)}</span>
         <span class="card-capacity"><span>${Math.max(0, cap - rsvps)}</span> spots left</span>
       </div>
-      <div class="card-title">${e.title}</div>
-      <div class="card-club">${e.club || ''}</div>
-      <div class="card-date">📅 <span>${fmtDate(e.date)}</span> · ${fmtTime(e.time)} · ${e.venue}</div>
+      <div class="card-title">${escHtml(e.title)}</div>
+      <div class="card-club">${escHtml(e.club || '')}</div>
+      <div class="card-date">📅 <span>${fmtDate(e.date)}</span> · ${fmtTime(e.time)} · ${escHtml(e.venue)}</div>
       <div class="capacity-bar"><div class="capacity-fill fill-${e.category}" style="width:${pct}%"></div></div>
       <button class="btn-rsvp ${reg?'registered':full?'full':''}"
         onclick="${reg||full ? '' : `window.doRsvp('${e.id}')`}">
@@ -638,8 +815,6 @@ function renderCards() {
 }
 
 // ─── STUDENT: RSVP (TWO-STEP) ────────────────────────────────────
-let pendingRsvpId = null;
-
 window.doRsvp = function(eventId) {
   if (!currentUser) return;
   const ev = allEvents.find(e => e.id === eventId);
@@ -649,34 +824,29 @@ window.doRsvp = function(eventId) {
 };
 
 function openRsvpModal(ev) {
-  // Build event banner
   const banner = document.getElementById('rsvp-banner');
   banner.className = `rsvp-event-banner cat-${ev.category}`;
   banner.innerHTML = `
     <div class="rsvp-banner-cat">${capWord(ev.category)}</div>
-    <div class="rsvp-banner-title">${ev.title}</div>
+    <div class="rsvp-banner-title">${escHtml(ev.title)}</div>
     <div class="rsvp-banner-meta">
       <div class="rsvp-meta-row">📅 <span>${fmtDate(ev.date)} · ${fmtTime(ev.time)}</span></div>
-      <div class="rsvp-meta-row">📍 <span>${ev.venue}</span></div>
+      <div class="rsvp-meta-row">📍 <span>${escHtml(ev.venue)}</span></div>
       <div class="rsvp-meta-row">👥 <span>${Math.max(0,(ev.capacity||0)-(ev.rsvps||0))} spots remaining</span></div>
     </div>`;
 
-  // User info
-  document.getElementById('rsvp-user-name').textContent = currentUser.displayName || 'Student';
+  document.getElementById('rsvp-user-name').textContent  = currentUser.displayName || 'Student';
   document.getElementById('rsvp-user-email').textContent = currentUser.email;
   const avatarWrap = document.getElementById('rsvp-avatar-wrap');
-  if (currentUser.photoURL) {
-    avatarWrap.innerHTML = `<img class="rsvp-user-avatar" src="${currentUser.photoURL}" alt=""/>`;
-  } else {
-    avatarWrap.innerHTML = `<div class="rsvp-user-avatar-placeholder">👤</div>`;
-  }
+  avatarWrap.innerHTML = currentUser.photoURL
+    ? `<img class="rsvp-user-avatar" src="${currentUser.photoURL}" alt=""/>`
+    : `<div class="rsvp-user-avatar-placeholder">👤</div>`;
 
-  // Build step-2 summary
   document.getElementById('rsvp-summary').innerHTML = `
-    <div class="rsvp-summary-row"><span class="rsvp-summary-key">Event</span><span class="rsvp-summary-val">${ev.title}</span></div>
+    <div class="rsvp-summary-row"><span class="rsvp-summary-key">Event</span><span class="rsvp-summary-val">${escHtml(ev.title)}</span></div>
     <div class="rsvp-summary-row"><span class="rsvp-summary-key">Date</span><span class="rsvp-summary-val">${fmtDate(ev.date)}, ${fmtTime(ev.time)}</span></div>
-    <div class="rsvp-summary-row"><span class="rsvp-summary-key">Venue</span><span class="rsvp-summary-val">${ev.venue}</span></div>
-    <div class="rsvp-summary-row"><span class="rsvp-summary-key">Name</span><span class="rsvp-summary-val">${currentUser.displayName || '—'}</span></div>
+    <div class="rsvp-summary-row"><span class="rsvp-summary-key">Venue</span><span class="rsvp-summary-val">${escHtml(ev.venue)}</span></div>
+    <div class="rsvp-summary-row"><span class="rsvp-summary-key">Name</span><span class="rsvp-summary-val">${escHtml(currentUser.displayName || '—')}</span></div>
     <div class="rsvp-summary-row"><span class="rsvp-summary-key">Email</span><span class="rsvp-summary-val">${currentUser.email}</span></div>`;
 
   rsvpGoStep1();
@@ -695,6 +865,7 @@ function rsvpGoStep1() {
   document.getElementById('rsvp-tab-1').classList.remove('done');
   document.getElementById('rsvp-tab-2').classList.remove('active');
 }
+window.rsvpGoStep1 = rsvpGoStep1;
 
 window.rsvpGoStep2 = function() {
   document.getElementById('rsvp-panel-1').classList.remove('active');
@@ -704,29 +875,40 @@ window.rsvpGoStep2 = function() {
   document.getElementById('rsvp-tab-2').classList.add('active');
 };
 
-window.rsvpGoStep1 = rsvpGoStep1;
-
 window.confirmRsvp = async function() {
   if (!pendingRsvpId || !currentUser) return;
   const eventId = pendingRsvpId;
   const ev = allEvents.find(e => e.id === eventId);
   if (!ev) return;
 
-  const btn = document.getElementById('rsvp-confirm-btn');
+  const btn   = document.getElementById('rsvp-confirm-btn');
   const label = document.getElementById('rsvp-btn-label');
   btn.disabled = true;
-  label.innerHTML = `<div class="spinner" style="border-top-color:#0a0a0f;border-color:rgba(0,0,0,0.2);border-top-color:#0a0a0f"></div>`;
+  label.innerHTML = `<div class="spinner" style="border-color:rgba(0,0,0,0.2);border-top-color:#0a0a0f"></div>`;
 
   myRsvps.add(eventId);
-  renderCards(); // optimistic
+  renderCards();
 
   try {
+    // Write to user's subcollection
     await setDoc(doc(db, 'users', currentUser.uid, 'rsvps', eventId), {
       eventId,
       eventTitle: ev.title,
       rsvpedAt: serverTimestamp()
     });
+    // Write to top-level rsvps collection so admin can query by event
+    await setDoc(doc(db, 'rsvps', `${currentUser.uid}_${eventId}`), {
+      eventId,
+      eventTitle: ev.title,
+      userUid:    currentUser.uid,
+      userName:   currentUser.displayName || '',
+      userEmail:  currentUser.email,
+      rsvpedAt:   serverTimestamp()
+    });
+    // Increment event counter
     await updateDoc(doc(db, 'events', eventId), { rsvps: increment(1) });
+    // Re-subscribe to notifications now that myRsvps has changed
+    subscribeToStudentNotifications();
     closeRsvpModal();
     showToast(`✓ Registered for "${ev.title}"`, 'student');
   } catch(e) {
@@ -740,21 +922,15 @@ window.confirmRsvp = async function() {
   }
 };
 
-// Close on backdrop click
 document.getElementById('rsvp-overlay').addEventListener('click', function(e) {
   if (e.target === this) window.closeRsvpModal();
 });
 
 // ─── ADMIN: SUBSCRIBE ────────────────────────────────────────────
 function subscribeToAdminEvents() {
-  const adminClub = currentUser.displayName || currentUser.email;
   const list = document.getElementById('admin-events-list');
   list.innerHTML = `<div class="loading-state"><div class="big-spinner"></div><p>Loading your events...</p></div>`;
-
-  const q = query(collection(db, 'events'),
-    where('adminUid', '==', currentUser.uid),
-    orderBy('createdAt', 'desc'));
-
+  const q = query(collection(db, 'events'), where('adminUid', '==', currentUser.uid), orderBy('createdAt', 'desc'));
   unsubEvents = onSnapshot(q, (snap) => {
     allEvents = snap.docs.map(d => ({ id: d.id, ...d.data() }));
     renderAdminStats();
@@ -769,7 +945,7 @@ function renderAdminStats() {
   const fillRate   = totalCap ? Math.round(totalRsvps/totalCap*100) : 0;
   document.getElementById('stat-total').textContent = allEvents.length;
   document.getElementById('stat-rsvps').textContent = totalRsvps;
-  document.getElementById('stat-fill').textContent  = fillRate+'%';
+  document.getElementById('stat-fill').textContent  = fillRate + '%';
   document.getElementById('stat-spots').textContent = openSpots;
 }
 
@@ -779,15 +955,23 @@ function renderAdminList() {
     list.innerHTML = `<div style="text-align:center;padding:60px;color:var(--muted);font-size:13px">No events yet. Post one to get started.</div>`;
     return;
   }
-  list.innerHTML = allEvents.map((e,i) => {
+  list.innerHTML = allEvents.map((e, i) => {
     const pct = Math.min(100, Math.round((e.rsvps||0)/(e.capacity||1)*100));
     return `
     <div class="admin-event-row" style="animation-delay:${i*0.05}s">
       <div class="admin-event-main">
-        <div class="admin-event-title">${e.title}</div>
-        <div class="admin-event-meta">${capWord(e.category)} · ${fmtDate(e.date)} · <span>${e.venue}</span></div>
+        <div class="admin-event-title">${escHtml(e.title)}</div>
+        <div class="admin-event-meta">${capWord(e.category)} · ${fmtDate(e.date)} · <span>${escHtml(e.venue)}</span></div>
         <div class="admin-capacity-bar" style="margin-top:10px">
           <div class="admin-capacity-fill" style="width:${pct}%"></div>
+        </div>
+        <div class="admin-event-actions">
+          <button class="btn-view-rsvps" onclick="window.viewRsvpList('${e.id}', '${escAttr(e.title)}', ${e.rsvps||0})">
+            👥 View RSVPs (${e.rsvps||0})
+          </button>
+          <button class="btn-notify" onclick="window.openNotifyModal('${e.id}', '${escAttr(e.title)}', ${e.rsvps||0})">
+            📢 Notify Attendees
+          </button>
         </div>
       </div>
       <div class="rsvp-counter">
@@ -809,9 +993,145 @@ window.deleteEvent = async function(eventId) {
   }
 };
 
-// ─── MODAL ───────────────────────────────────────────────────────
+// ─── ADMIN: VIEW RSVP LIST ───────────────────────────────────────
+window.viewRsvpList = async function(eventId, eventTitle, rsvpCount) {
+  document.getElementById('rsvp-list-event-name').textContent = eventTitle;
+  document.getElementById('rsvp-list-count').textContent = '';
+  document.getElementById('rsvp-list-overlay').classList.add('open');
+  document.getElementById('rsvp-list-content').innerHTML =
+    `<div style="padding:40px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:12px;color:var(--muted)"><div class="big-spinner" style="width:24px;height:24px;border-width:2px"></div><span>Fetching attendees...</span></div>`;
+  rsvpEmailList = [];
+
+  try {
+    const snap = await getDocs(query(
+      collection(db, 'rsvps'),
+      where('eventId', '==', eventId)
+    ));
+
+    if (snap.empty) {
+      document.getElementById('rsvp-list-count').textContent = '0 registered students';
+      document.getElementById('rsvp-list-content').innerHTML =
+        `<div class="rsvp-list-empty">No students have RSVP'd yet.</div>`;
+      return;
+    }
+
+    const entries = snap.docs.map(d => d.data()).sort((a, b) => {
+      const ta = a.rsvpedAt?.toDate?.() || 0;
+      const tb = b.rsvpedAt?.toDate?.() || 0;
+      return tb - ta;
+    });
+    rsvpEmailList = entries.map(e => e.userEmail).filter(Boolean);
+
+    document.getElementById('rsvp-list-count').textContent =
+      `${entries.length} registered student${entries.length !== 1 ? 's' : ''}`;
+
+    document.getElementById('rsvp-list-content').innerHTML = entries.map(e => {
+      const initials = (e.userName || e.userEmail || '?')[0].toUpperCase();
+      const dateStr  = e.rsvpedAt?.toDate ? fmtShortDate(e.rsvpedAt.toDate()) : '';
+      return `
+      <div class="rsvp-list-item">
+        <div class="rsvp-list-avatar">${initials}</div>
+        <div style="flex:1;min-width:0">
+          <div class="rsvp-list-name">${escHtml(e.userName || 'Student')}</div>
+          <div class="rsvp-list-email">${escHtml(e.userEmail || '—')}</div>
+        </div>
+        <div class="rsvp-list-date">${dateStr}</div>
+      </div>`;
+    }).join('');
+  } catch(err) {
+    document.getElementById('rsvp-list-content').innerHTML =
+      `<div class="rsvp-list-empty" style="color:var(--danger)">Failed to load RSVPs.<br><small>${err.message}</small></div>`;
+  }
+};
+
+window.closeRsvpListModal = function() {
+  document.getElementById('rsvp-list-overlay').classList.remove('open');
+  rsvpEmailList = [];
+};
+
+window.copyEmails = async function() {
+  if (!rsvpEmailList.length) { showToast('No emails to copy', 'error'); return; }
+  try {
+    await navigator.clipboard.writeText(rsvpEmailList.join(', '));
+    showToast(`Copied ${rsvpEmailList.length} email${rsvpEmailList.length!==1?'s':''}!`, 'admin');
+  } catch(e) {
+    // fallback
+    const ta = document.createElement('textarea');
+    ta.value = rsvpEmailList.join(', ');
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast(`Copied ${rsvpEmailList.length} emails!`, 'admin');
+  }
+};
+
+document.getElementById('rsvp-list-overlay').addEventListener('click', function(e) {
+  if (e.target === this) window.closeRsvpListModal();
+});
+
+// ─── ADMIN: NOTIFY MODAL ─────────────────────────────────────────
+window.openNotifyModal = function(eventId, eventTitle, rsvpCount) {
+  notifyTargetEventId = eventId;
+  notifyTargetTitle   = eventTitle;
+  document.getElementById('notify-preview-title').textContent  = eventTitle;
+  document.getElementById('notify-preview-rsvps').textContent = `${rsvpCount} student${rsvpCount!==1?'s':''} registered`;
+  document.getElementById('notify-msg').value = '';
+  document.getElementById('notify-char-count').textContent = '0 / 300';
+  document.getElementById('notify-overlay').classList.add('open');
+  setTimeout(() => document.getElementById('notify-msg').focus(), 100);
+};
+
+window.closeNotifyModal = function() {
+  document.getElementById('notify-overlay').classList.remove('open');
+  notifyTargetEventId = null;
+  notifyTargetTitle   = null;
+};
+
+window.updateCharCount = function() {
+  const len = document.getElementById('notify-msg').value.length;
+  const el  = document.getElementById('notify-char-count');
+  el.textContent = `${len} / 300`;
+  el.style.color = len > 280 ? 'var(--danger)' : 'var(--muted)';
+};
+
+window.sendNotification = async function() {
+  const msg = document.getElementById('notify-msg').value.trim();
+  if (!msg) { showToast('Please enter a message', 'error'); return; }
+  if (msg.length > 300) { showToast('Message too long (max 300 chars)', 'error'); return; }
+
+  const btn = document.getElementById('notify-submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+
+  try {
+    await addDoc(collection(db, 'notifications'), {
+      eventId:    notifyTargetEventId,
+      eventTitle: notifyTargetTitle,
+      message:    msg,
+      adminUid:   currentUser.uid,
+      adminName:  currentUser.displayName || currentUser.email,
+      sentAt:     serverTimestamp(),
+      readBy:     []
+    });
+    closeNotifyModal();
+    showToast('Notification sent to attendees!', 'admin');
+  } catch(e) {
+    showToast('Failed to send notification', 'error');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Send Notification →';
+  }
+};
+
+document.getElementById('notify-overlay').addEventListener('click', function(e) {
+  if (e.target === this) window.closeNotifyModal();
+});
+
+// ─── NEW EVENT MODAL ─────────────────────────────────────────────
 window.openModal = function() {
-  const d = new Date(); d.setDate(d.getDate()+1);
+  const d = new Date();
+  d.setDate(d.getDate() + 1);
   document.getElementById('m-date').value = d.toISOString().split('T')[0];
   document.getElementById('m-time').value = '10:00';
   document.getElementById('m-title').value = '';
@@ -832,7 +1152,7 @@ window.submitEvent = async function() {
   const venue    = document.getElementById('m-venue').value.trim();
 
   if (!title || !capacity || !date || !venue) { showToast('Please fill all fields', 'error'); return; }
-  if (isNaN(capacity) || capacity < 5) { showToast('Capacity must be at least 5', 'error'); return; }
+  if (isNaN(capacity) || capacity < 5)        { showToast('Capacity must be at least 5', 'error'); return; }
 
   const btn = document.getElementById('submit-btn');
   btn.disabled = true;
@@ -877,17 +1197,44 @@ function showToast(msg, type) {
   toastTimer = setTimeout(() => t.classList.remove('show'), 3500);
 }
 
-function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
 function capWord(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : ''; }
+
 function fmtDate(d) {
   if (!d) return '';
   const dt = new Date(d + 'T00:00:00');
-  return dt.toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' });
+  return dt.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
 }
+
+function fmtShortDate(dt) {
+  if (!dt) return '';
+  return dt.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
+}
+
 function fmtTime(t) {
   if (!t) return '';
-  const [h,m] = t.split(':').map(Number);
-  return `${h%12||12}:${String(m).padStart(2,'0')} ${h>=12?'PM':'AM'}`;
+  const [h, m] = t.split(':').map(Number);
+  return `${h % 12 || 12}:${String(m).padStart(2, '0')} ${h >= 12 ? 'PM' : 'AM'}`;
+}
+
+function timeAgo(date) {
+  const diff = Math.floor((Date.now() - date.getTime()) / 1000);
+  if (diff < 60)    return 'just now';
+  if (diff < 3600)  return `${Math.floor(diff / 60)}m ago`;
+  if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`;
+  return `${Math.floor(diff / 86400)}d ago`;
+}
+
+function escHtml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+function escAttr(str) {
+  if (!str) return '';
+  return String(str).replace(/'/g, "\\'").replace(/"/g, '\\"');
 }
 </script>
 </body>
